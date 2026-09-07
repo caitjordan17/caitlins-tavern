@@ -1,12 +1,12 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Tavern from "./components/Tavern";
 import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Tavern />} />
 
@@ -35,7 +35,7 @@ function App() {
           element={<UnderConstruction title="Status Check!" />}
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
