@@ -2,6 +2,7 @@ import "./App.css";
 import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Tavern from "./components/Tavern";
+import OrderUp from "./components/OrderUp";
 import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
@@ -20,10 +21,7 @@ function App() {
           element={<UnderConstruction title="SF Food Finds" />}
         />
 
-        <Route
-          path="/order-up"
-          element={<UnderConstruction title="Order Up!" />}
-        />
+        <Route path="/order-up" element={<OrderUp />} />
 
         <Route
           path="/case-files"

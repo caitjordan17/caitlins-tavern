@@ -99,7 +99,10 @@ function Tavern() {
                 className="game-overlay order-position"
                 to="/order-up"
                 aria-label="Order Up SQL minigame"
-            />
+            >
+                <span className="order-title">Order-Up</span>
+                <span className="order-subtitle">a SQL mini game</span>
+            </Link>
 
             <Link
                 className="game-overlay case-position"

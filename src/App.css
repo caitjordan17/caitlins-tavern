@@ -89,8 +89,30 @@ body {
 }
 
 .order-position {
-  left: 24%;
-  width: 20%;
+  left: 14.7%;
+  bottom: 10.5%;
+  width: 21.1%;
+  height: 12.3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2cqw;
+  color: #f2dfb8;
+  font-family: "Courier New", monospace;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 2px 2px #173d35, -1px -1px #173d35;
+}
+
+.order-title {
+  font-size: clamp(7px, 1.65cqw, 25px);
+  font-weight: 700;
+}
+
+.order-subtitle {
+  font-size: clamp(7px, 1.65cqw, 25px);
+  white-space: nowrap;
 }
 
 .case-position {
@@ -240,4 +262,74 @@ body {
   margin-top: 24px;
   padding: 12px;
   border: 2px solid #895329;
+}
+
+.order-up-page {
+  position: relative;
+  container-type: inline-size;
+  width: min(100%, 1536px);
+  margin: 0 auto;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.order-up-background {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-up-back {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  padding: clamp(8px, 1.2vw, 16px) clamp(12px, 2vw, 24px);
+  border: 2px solid #b08a44;
+  background: #173d35;
+  color: #f2dfb8;
+  font: 600 clamp(12px, 1.5vw, 20px) "Courier New", monospace;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.order-up-back:hover {
+  background: #245a4e;
+}
+
+.order-up-back:focus-visible {
+  outline: 3px solid #f2dfb8;
+  outline-offset: 3px;
+}
+
+.order-up-chef {
+  position: absolute;
+  bottom: 8%;
+  left: 44%;
+  width: 14%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.order-up-chef img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.order-up-chef:hover img {
+  transform: translateY(-2%);
+}
+
+.order-up-chef:focus-visible {
+  outline: 3px solid #f2dfb8;
+  outline-offset: 3px;
+}
+
+.order-up-chef-speech {
+  bottom: calc(100% - 3cqw);
+  width: 25cqw;
+  max-width: none;
 }
