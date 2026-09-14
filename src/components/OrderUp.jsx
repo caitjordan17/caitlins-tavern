@@ -4,7 +4,6 @@ import initSqlJs from "sql.js";
 import sqlWasmUrl from "sql.js/dist/sql-wasm.wasm?url";
 import orderUpImage from "../assets/order-up-home.png";
 import toadChefImage from "../assets/toad-chef.png";
-import { orders } from "../data/orders";
 import { createOrderDatabase } from "../data/orderDatabase";
 
 const startingQuery = `SELECT
@@ -31,10 +30,23 @@ const successDialogue = [
     "Wait! Four! You've got four!",
     "There's the missing roast hen!",
     "And look at that... there's no server attached to it.",
-    "Now we know where to start. Thank you!",
+    "Oh! I guess 'first-initial-last' isn't the best naming convention for someone like Nealith Ull.",
 ];
 
 const requiredOrderIds = new Set([101, 102, 103, 104]);
+const boardColumns = ["order_id", "table_number", "item", "server"];
+
+function getKitchenBoardRows(results) {
+    const result = results.find(({ columns }) =>
+        boardColumns.every((column) => columns.some((name) => name.toLowerCase() === column))
+    );
+    if (!result) return null;
+
+    const indexes = boardColumns.map((column) =>
+        result.columns.findIndex((name) => name.toLowerCase() === column)
+    );
+    return result.values.map((row) => indexes.map((index) => row[index]));
+}
 
 function foundAllOrdersWithLeftJoin(query, results) {
     if (!/\bLEFT\s+(?:OUTER\s+)?JOIN\b/i.test(query)) return false;
@@ -56,6 +68,7 @@ function OrderUp() {
     const [solved, setSolved] = useState(false);
     const [query, setQuery] = useState(startingQuery);
     const [results, setResults] = useState([]);
+    const [boardRows, setBoardRows] = useState([]);
     const [hasRunQuery, setHasRunQuery] = useState(false);
     const [queryError, setQueryError] = useState(null);
     const [databaseStatus, setDatabaseStatus] = useState("loading");
@@ -67,7 +80,9 @@ function OrderUp() {
             .then((SQL) => {
                 if (cancelled) return;
                 databaseRef.current = createOrderDatabase(SQL);
-                setResults(databaseRef.current.exec(startingQuery));
+                const startingResults = databaseRef.current.exec(startingQuery);
+                setResults(startingResults);
+                setBoardRows(getKitchenBoardRows(startingResults) ?? []);
                 setHasRunQuery(true);
                 setDatabaseStatus("ready");
             })
@@ -117,6 +132,8 @@ function OrderUp() {
         try {
             const nextResults = databaseRef.current.exec(query);
             setResults(nextResults);
+            const nextBoardRows = getKitchenBoardRows(nextResults);
+            if (nextBoardRows !== null) setBoardRows(nextBoardRows);
             setQueryError(null);
             setHasRunQuery(true);
             if (!solved && foundAllOrdersWithLeftJoin(query, nextResults)) {
@@ -154,12 +171,16 @@ function OrderUp() {
             </div>
             <section className="kitchen-orders" aria-labelledby="kitchen-orders-heading">
                 <h2 id="kitchen-orders-heading">Kitchen Orders</h2>
-                {orders.map((order) => (
-                    <div className="kitchen-order" key={order.orderId}>
-                        <span>#{order.orderId} {order.item}</span>
-                        <span>Table {order.tableNumber}</span>
-                    </div>
-                ))}
+                <table>
+                    <thead><tr><th scope="col">ID</th><th scope="col">Table</th><th scope="col">Item</th><th scope="col">Server</th></tr></thead>
+                    <tbody>
+                        {boardRows.map((row, index) => (
+                            <tr key={`${row[0]}-${index}`}>
+                                {row.map((value, columnIndex) => <td key={columnIndex}>{value === null ? "—" : String(value)}</td>)}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </section>
             <div className="order-up-sql">
                 <p>Toad's kitchen query shows three orders. Can you find the missing one?</p>
