@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Tavern from "./components/Tavern";
 import OrderUp from "./components/OrderUp";
+import CaseFiles from "./components/CaseFiles";
 import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
@@ -23,15 +24,8 @@ function App() {
 
         <Route path="/order-up" element={<OrderUp />} />
 
-        <Route
-          path="/case-files"
-          element={<UnderConstruction title="Case Files" />}
-        />
+        <Route path="/case-files" element={<CaseFiles />} />
 
-        <Route
-          path="/status-check"
-          element={<UnderConstruction title="Status Check!" />}
-        />
       </Routes>
     </HashRouter>
   );

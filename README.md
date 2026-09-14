@@ -1,22 +1,18 @@
 # Caitlin's Tavern
 
-## App tree
 
 ```text
 App
 ├── Tavern
 │   └── Patron × 3
 ├── OrderUp
+├── Case Files
 └── UnderConstruction
     ├── Recipe Book
-    ├── SF Food Finds
-    ├── Case Files
-    └── Status Check
+    └── SF Food Finds
 ```
 
-## Start locally
-
-Use Node.js 22 or newer, then run:
+Node.js 22:
 
 ```sh
 npm install

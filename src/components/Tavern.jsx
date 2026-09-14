@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Patron from "./Patron";
-import tavernImage from "../assets/tavern-home.png";
+import MenuBoard from "./MenuBoard";
+import Cait from "./Cait";
+import tavernImage from "../assets/tavern-home-empty.png";
+import travelerImage from "../assets/patron-1.png";
+import scholarImage from "../assets/patron-2.png";
+import regularImage from "../assets/patron-3.png";
+import paperImage from "../assets/paper.png";
 
 function Tavern() {
-    const [activePatron, setActivePatron] = useState(0);
+    const [activeSpeaker, setActiveSpeaker] = useState(null);
 
     const patrons = [
         {
             name: "The Traveler",
+            image: travelerImage,
             dialogue: [
                 "She has triaged complex enterprise bugs using AWS, SSH, and raw client data.",
                 "Lore is she investigates 1M+ line flat files to find customer data issues.",
@@ -18,6 +25,7 @@ function Tavern() {
         },
         {
             name: "The Scholar",
+            image: scholarImage,
             dialogue: [
                 "She uses SQL and Python to investigate data discrepancies.",
                 "I hear she's led complex enterprise implementations and translated client requirements into technical solutions.",
@@ -27,6 +35,7 @@ function Tavern() {
         },
         {
             name: "The Regular",
+            image: regularImage,
             dialogue: [
                 "She serves mostly pilsners and pale ales, as they're her favorite.",
                 "She likes good food, good books, and a good old fashioned mystery.",
@@ -36,17 +45,30 @@ function Tavern() {
         },
     ];
 
+    function clearSpeechOnBackgroundClick(event) {
+        if (!event.target.closest("button, a")) {
+            setActiveSpeaker(null);
+        }
+    }
+
     return (
-        <main className="tavern-page">
+        <main className="tavern-page" onClick={clearSpeechOnBackgroundClick}>
 
             <img
                 className="tavern-background"
                 src={tavernImage}
                 alt=""
             />
-            <div className="quote-overlay">
-                "And that's why you always leave a note."
-            </div>
+            <MenuBoard />
+            <Cait
+                isSpeaking={activeSpeaker === "cait"}
+                onSpeak={() => setActiveSpeaker("cait")}
+                onClose={() => setActiveSpeaker(null)}
+            />
+            <div className="tavern-bar-front" aria-hidden="true" />
+            <Link className="case-file-paper" to="/case-files" aria-label="Open Case Files">
+                <img src={paperImage} alt="" />
+            </Link>
 
             <nav className="on-tap-overlay" aria-label="On Tap">
                 <a
@@ -74,47 +96,26 @@ function Tavern() {
             <div className="patron-overlay traveler-position">
                 <Patron
                     {...patrons[0]}
-                    isSpeaking={activePatron === 0}
-                    onSpeak={() => setActivePatron(0)}
+                    isSpeaking={activeSpeaker === "traveler"}
+                    onSpeak={() => setActiveSpeaker("traveler")}
                 />
             </div>
 
             <div className="patron-overlay scholar-position">
                 <Patron
                     {...patrons[1]}
-                    isSpeaking={activePatron === 1}
-                    onSpeak={() => setActivePatron(1)}
+                    isSpeaking={activeSpeaker === "scholar"}
+                    onSpeak={() => setActiveSpeaker("scholar")}
                 />
             </div>
 
             <div className="patron-overlay regular-position">
                 <Patron
                     {...patrons[2]}
-                    isSpeaking={activePatron === 2}
-                    onSpeak={() => setActivePatron(2)}
+                    isSpeaking={activeSpeaker === "regular"}
+                    onSpeak={() => setActiveSpeaker("regular")}
                 />
             </div>
-
-            <Link
-                className="game-overlay order-position"
-                to="/order-up"
-                aria-label="Order Up SQL minigame"
-            >
-                <span className="order-title">Order-Up</span>
-                <span className="order-subtitle">a SQL mini game</span>
-            </Link>
-
-            <Link
-                className="game-overlay case-position"
-                to="/case-files"
-                aria-label="Case Files data mystery"
-            />
-
-            <Link
-                className="game-overlay status-position"
-                to="/status-check"
-                aria-label="Status Check API minigame"
-            />
 
         </main>
     );

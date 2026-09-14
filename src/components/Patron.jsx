@@ -1,13 +1,15 @@
 import { useState } from "react";
 
-function Patron({ name, dialogue, isSpeaking, onSpeak }) {
+function Patron({ name, image, dialogue, isSpeaking, onSpeak }) {
     const [dialogueIndex, setDialogueIndex] = useState(0);
 
     function handleClick() {
         if (isSpeaking) {
             setDialogueIndex((current) => (current + 1) % dialogue.length);
+        } else {
+            setDialogueIndex(0);
+            onSpeak();
         }
-        onSpeak();
     }
 
     return (
@@ -18,6 +20,7 @@ function Patron({ name, dialogue, isSpeaking, onSpeak }) {
             aria-label={isSpeaking ? `Hear more from ${name}` : `Talk to ${name}`}
             aria-expanded={isSpeaking}
         >
+            <img src={image} alt="" />
             {isSpeaking && <span className="dynamic-speech" aria-live="polite" aria-atomic="true">
                 {dialogue[dialogueIndex]}
             </span>}
