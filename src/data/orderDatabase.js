@@ -1,37 +1,30 @@
-import { orders } from "./orders.js";
+import { orders, servers } from "./orders.js";
 
 export function createOrderDatabase(SQL) {
     const database = new SQL.Database();
 
     database.run(`
-        CREATE TABLE orders (
-            id INTEGER PRIMARY KEY,
-            customer TEXT NOT NULL,
-            item TEXT NOT NULL,
+        CREATE TABLE SERVERS (
+            username TEXT,
+            name TEXT NOT NULL,
+            table_number INTEGER UNIQUE
+        );
+        CREATE TABLE ORDERS (
+            order_id INTEGER PRIMARY KEY,
             table_number INTEGER NOT NULL,
-            status TEXT NOT NULL,
-            minutes_waiting INTEGER NOT NULL
-        )
+            item TEXT NOT NULL
+        );
     `);
 
-    const insert = database.prepare(`
-        INSERT INTO orders (id, customer, item, table_number, status, minutes_waiting)
-        VALUES (?, ?, ?, ?, ?, ?)
-    `);
+    const insertServer = database.prepare("INSERT INTO SERVERS (username, name, table_number) VALUES (?, ?, ?)");
+    const insertOrder = database.prepare("INSERT INTO ORDERS (order_id, table_number, item) VALUES (?, ?, ?)");
 
     try {
-        for (const order of orders) {
-            insert.run([
-                order.id,
-                order.customer,
-                order.item,
-                order.table,
-                order.status,
-                order.minutesWaiting,
-            ]);
-        }
+        for (const server of servers) insertServer.run([server.username, server.name, server.tableNumber]);
+        for (const order of orders) insertOrder.run([order.orderId, order.tableNumber, order.item]);
     } finally {
-        insert.free();
+        insertServer.free();
+        insertOrder.free();
     }
 
     return database;

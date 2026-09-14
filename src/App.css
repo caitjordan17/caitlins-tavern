@@ -486,7 +486,6 @@ body {
   padding: 0 0.5cqw;
   font-size: 1.05cqw;
   line-height: 1.2;
-  text-transform: capitalize;
 }
 
 .order-up-sql {
@@ -644,23 +643,27 @@ body {
   bottom: 8%;
   left: 67%;
   width: 16%;
+}
+
+.order-up-chef-button {
+  width: 100%;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
 }
 
-.order-up-chef img {
+.order-up-chef-button img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.order-up-chef:hover img {
+.order-up-chef-button:hover img {
   transform: translateY(-2%);
 }
 
-.order-up-chef:focus-visible {
+.order-up-chef-button:focus-visible {
   outline: 3px solid #f2dfb8;
   outline-offset: 3px;
 }
@@ -669,4 +672,24 @@ body {
   bottom: calc(100% - 3cqw);
   width: 25cqw;
   max-width: none;
+  padding: 0.8em 1em 2.5em;
+}
+
+.order-up-chef-speech p {
+  margin: 0;
+}
+
+.order-up-dialogue-next {
+  position: absolute;
+  padding: 0.15em 0.45em;
+  border: 1px solid currentColor;
+  background: #f2e2c4;
+  color: #2c2118;
+  font: inherit;
+  cursor: pointer;
+}
+
+.order-up-dialogue-next {
+  bottom: 0.4em;
+  right: 0.5em;
 }

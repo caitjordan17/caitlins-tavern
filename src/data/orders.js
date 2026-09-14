@@ -1,34 +1,13 @@
+export const servers = [
+    { username: "RGROFF", name: "ROLAND GROFF", tableNumber: 2 },
+    { username: "PHARK", name: "PARLANCE HARK", tableNumber: 4 },
+    { username: null, name: "NEALITH ULL", tableNumber: null },
+    { username: "RGROFF", name: "ROLAND GROFF", tableNumber: 6 },
+];
+
 export const orders = [
-    {
-        id: 101,
-        customer: "Mira",
-        item: "Stew",
-        table: 3,
-        status: "waiting",
-        minutesWaiting: 12,
-    },
-    {
-        id: 102,
-        customer: "Sir Rowan",
-        item: "Meat Pie",
-        table: 1,
-        status: "cooking",
-        minutesWaiting: 7,
-    },
-    {
-        id: 103,
-        customer: "Grimble",
-        item: "Soup",
-        table: 5,
-        status: "waiting",
-        minutesWaiting: 18,
-    },
-    {
-        id: 104,
-        customer: "Elowen",
-        item: "Bread & Cheese",
-        table: 2,
-        status: "ready",
-        minutesWaiting: 4,
-    },
+    { orderId: 101, tableNumber: 2, item: "MEAT PIE" },
+    { orderId: 102, tableNumber: 4, item: "STEW" },
+    { orderId: 103, tableNumber: 1, item: "ROAST HEN" },
+    { orderId: 104, tableNumber: 6, item: "FISH PIE" },
 ];
