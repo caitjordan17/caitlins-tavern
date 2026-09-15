@@ -4,6 +4,8 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import Tavern from "./components/Tavern";
 import OrderUp from "./components/OrderUp";
 import CaseFiles from "./components/CaseFiles";
+import DragonDice from "./components/DragonDice";
+import TavernYard from "./components/TavernYard";
 import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
@@ -17,14 +19,11 @@ function App() {
           element={<UnderConstruction title="The Recipe Book" />}
         />
 
-        <Route
-          path="/sf-food-finds"
-          element={<UnderConstruction title="SF Food Finds" />}
-        />
-
         <Route path="/order-up" element={<OrderUp />} />
 
         <Route path="/case-files" element={<CaseFiles />} />
+        <Route path="/dragon-dice" element={<DragonDice />} />
+        <Route path="/tavern-yard" element={<TavernYard />} />
 
       </Routes>
     </HashRouter>

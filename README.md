@@ -9,7 +9,7 @@ App
 ├── Case Files
 └── UnderConstruction
     ├── Recipe Book
-    └── SF Food Finds
+    └── Tavern Tunes
 ```
 
 Node.js 22:

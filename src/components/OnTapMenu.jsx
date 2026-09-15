@@ -6,7 +6,7 @@ function OnTapMenu() {
                 Ye Old LinkedIn
             </a>
             <button>The Recipe Book</button>
-            <button>SF Food Establishments</button>
+            <a href="https://open.spotify.com/playlist/2Y73njm5d4enXmGuuZokdl" target="_blank" rel="noreferrer">Tavern Tunes</a>
             <button>Current Quest</button>
         </nav>
     );
